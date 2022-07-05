@@ -5,9 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "npm run",
-    "start": "nodemon server.ts",
-    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
-    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
+    "start": "nodemon server.ts"
   },
   "author": "",
   "license": "ISC",
