@@ -28,18 +28,13 @@
     "keyWordsToExclude": [
         "COVID",
         "Corona",
+        "corona",
         "US",
         "crash",
-        "quake",
-        "earthquake",
-        "Biden",
-        "biden",
-        "Mexico",
-        "Texas",
-        "NY"
+        "monkeypox",
+        "Monkeypox"
     ],
     "websitesToCrawl": [
-        "https://www.jamaicaobserver.com/latest-news/",
         "https://nationwideradiojm.com/category/crime-court-natlsecurity/",
         "https://jamaica.loopnews.com/category/loopjamaica-jamaica-news",
         "http://jamaica-star.com/news",
