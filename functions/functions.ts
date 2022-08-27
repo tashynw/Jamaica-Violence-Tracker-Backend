@@ -4,13 +4,14 @@ var cheerio = require('cheerio');
 const axios = require('axios').default;
 const fs = require('fs');
 const contextJson = require('../context.json');
+const {Articles} = require('../models/Articles');
 
 export async function updateArticleResults() {
 	const articles = await getRelatedArticles();
-	fs.writeFileSync('results/articles.txt', JSON.stringify(articles), {
-		encoding: 'utf8',
-		flag: 'w'
-	})
+	const response = await Articles.updateOne({title:'articles'},{articleStringified: JSON.stringify(articles)})
+	if(!response.matchedCount && !response.modifiedCount) {
+		const response = await Articles.create({title:'articles',articleStringified: JSON.stringify(articles)})
+	}
 }
 
 const getRelatedArticles = async(): Promise<ArticleInformationType[]> => {
