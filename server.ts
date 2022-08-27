@@ -1,5 +1,7 @@
 const express = require('express');
 import {Request, Response} from 'express';
+import { updateArticleResults } from './functions/functions'
+const cron = require('node-cron');
 const app = express();
 const path = require('path');
 const cors = require('cors');
@@ -29,3 +31,14 @@ app.all('*', (req: Request, res: Response) => {
 });
 
 app.listen(process.env.PORT || PORT, () => console.log(`Server running on port ${PORT}`));
+
+async function firstLaunch(){
+    await updateArticleResults()
+}
+
+firstLaunch();
+
+cron.schedule('0 */3 * * *', async function() {
+    await updateArticleResults()
+    console.log(`Articles fetched at ${new Date().toISOString()}`)
+});

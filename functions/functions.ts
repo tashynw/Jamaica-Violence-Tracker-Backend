@@ -2,7 +2,16 @@ import { AxiosError, AxiosResponse } from "axios";
 import { ArticleInformationType } from "../types/types";
 var cheerio = require('cheerio');
 const axios = require('axios').default;
+const fs = require('fs');
 const contextJson = require('../context.json');
+
+export async function updateArticleResults() {
+	const articles = await getRelatedArticles();
+	fs.writeFileSync('results/articles.txt', JSON.stringify(articles), {
+		encoding: 'utf8',
+		flag: 'w'
+	})
+}
 
 const getRelatedArticles = async(): Promise<ArticleInformationType[]> => {
 	const urls: string[] = contextJson.websitesToCrawl;
