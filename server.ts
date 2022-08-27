@@ -47,7 +47,7 @@ app.all('*', (req: Request, res: Response) => {
 
 app.listen(process.env.PORT || PORT, () => console.log(`Server running on port ${PORT}`));
 
-cron.schedule('0 */1 * * *', async function() {
+cron.schedule('0 */2 * * *', async function() {
     await updateArticleResults()
     console.log(`Articles fetched at ${new Date().toISOString()}`)
 });
