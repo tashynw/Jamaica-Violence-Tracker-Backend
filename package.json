@@ -6,8 +6,7 @@
   "scripts": {
     "test": "npm run",
     "dev": "nodemon server.ts",
-    "start": "node dist/server.js",
-    "build": "tsc"
+    "start": "tsc && node dist/server.js"
   },
   "author": "",
   "license": "ISC",
