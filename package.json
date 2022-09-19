@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "npm run",
-    "build": "tsc",
+    "build": "tsc -p .",
     "dev": "nodemon server.ts",
-    "start": "ts-node server"
+    "start": "node dist/server"
   },
   "author": "",
   "license": "ISC",
@@ -27,8 +27,7 @@
     "mongoose": "^6.5.3",
     "node-cron": "^3.0.2",
     "nodemon": "^2.0.18",
-    "typescript": "^4.7.4",
-    "ts-node": "^3.3.0"
+    "typescript": "^4.7.4"
   },
   "compilerOptions": {
     "esModuleInterop": true
