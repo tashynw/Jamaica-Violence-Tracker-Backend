@@ -2,7 +2,7 @@
   "name": "violence-tracker-backend",
   "version": "1.0.0",
   "description": "violence-tracker-backend",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
     "test": "npm run",
     "build": "tsc",
