@@ -2,12 +2,11 @@
   "name": "violence-tracker-backend",
   "version": "1.0.0",
   "description": "violence-tracker-backend",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "test": "npm run",
     "dev": "nodemon server.ts",
-    "start": "ts-node server.ts",
-    "main": "server.ts"
+    "start": "ts-node server.ts"
   },
   "author": "",
   "license": "ISC",
