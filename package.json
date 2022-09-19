@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "npm run",
-    "start": "nodemon server.ts"
+    "start": "ts-node --transpile-only server.ts"
   },
   "author": "",
   "license": "ISC",
