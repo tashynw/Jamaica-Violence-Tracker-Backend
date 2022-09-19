@@ -2,12 +2,12 @@
   "name": "violence-tracker-backend",
   "version": "1.0.0",
   "description": "violence-tracker-backend",
-  "main": "dist/server.js",
+  "main": "server.ts",
   "scripts": {
     "test": "npm run",
     "build": "tsc",
     "dev": "nodemon server.ts",
-    "start": "node server.js"
+    "start": "ts-node server"
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +27,8 @@
     "mongoose": "^6.5.3",
     "node-cron": "^3.0.2",
     "nodemon": "^2.0.18",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "ts-node": "^3.3.0"
   },
   "compilerOptions": {
     "esModuleInterop": true
