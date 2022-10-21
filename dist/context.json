@@ -1,0 +1,43 @@
+{
+    "keyWordsToInclude": [
+        "attack",
+        "Attack",
+        "death",
+        "Death",
+        "dead",
+        "Dead",
+        "shooting",
+        "Shooting",
+        "gun",
+        "Gun",
+        "killed",
+        "Killed",
+        "murder",
+        "Murder",
+        "shot",
+        "Shot",
+        "Raping",
+        "rape",
+        "Rape",
+        "raping",
+        "gang",
+        "Gang",
+        "gunned",
+        "Gunned"
+    ],
+    "keyWordsToExclude": [
+        "COVID",
+        "Corona",
+        "corona",
+        "US",
+        "crash",
+        "monkeypox",
+        "Monkeypox"
+    ],
+    "websitesToCrawl": [
+        "https://nationwideradiojm.com/category/crime-court-natlsecurity/",
+        "https://jamaica.loopnews.com/category/loopjamaica-jamaica-news",
+        "http://jamaica-star.com/news",
+        "http://radiojamaicanewsonline.com/local"
+    ]
+}
