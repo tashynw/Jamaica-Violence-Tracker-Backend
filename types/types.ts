@@ -1,5 +1,5 @@
 export type ArticleInformationType = {
-    text: string,
-    link: string,
-    id: string
-}
+  text: string;
+  link: string;
+  id: string;
+};

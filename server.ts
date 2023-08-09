@@ -47,11 +47,4 @@ connectDB().then(async () => {
   app.listen(process.env.PORT || PORT, () =>
     console.log(`Server running on port ${PORT}`)
   );
-
-  await updateArticleResults();
-
-  cron.schedule("0 */2 * * *", async function () {
-    await updateArticleResults();
-    console.log(`Articles fetched at ${new Date().toISOString()}`);
-  });
 });

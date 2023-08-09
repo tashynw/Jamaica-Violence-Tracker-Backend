@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const articleSchema = new Schema({
-    title: String,
-    articleStringified: String
+  title: String,
+  articleStringified: String,
 });
 
-const Articles=mongoose.model('Articles',articleSchema);
+const Articles = mongoose.model("Articles", articleSchema);
 module.exports = {
-    Articles
+  Articles,
 };

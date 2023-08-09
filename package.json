@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && cp ./context.json ./dist",
     "test": "npm run",
-    "start": "cd dist && node server"
+    "start": "cd dist && node server",
+    "dev":  "ts-node server"
   },
   "author": "",
   "license": "ISC",
