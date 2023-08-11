@@ -1,43 +1,123 @@
 {
     "keyWordsToInclude": [
         "attack",
-        "Attack",
         "death",
-        "Death",
         "dead",
-        "Dead",
         "shooting",
-        "Shooting",
         "gun",
-        "Gun",
         "killed",
-        "Killed",
         "murder",
-        "Murder",
         "shot",
-        "Shot",
-        "Raping",
+        "shoot",
         "rape",
-        "Rape",
         "raping",
         "gang",
-        "Gang",
         "gunned",
-        "Gunned"
+        "missing",
+        "rob",
+        "kill",
+        "stab"
     ],
     "keyWordsToExclude": [
         "COVID",
-        "Corona",
         "corona",
         "US",
         "crash",
-        "monkeypox",
-        "Monkeypox"
+        "america",
+        "USA",
+        "biden",
+        "collision"
     ],
     "websitesToCrawl": [
-        "https://nationwideradiojm.com/category/crime-court-natlsecurity/",
-        "https://jamaica.loopnews.com/category/loopjamaica-jamaica-news",
-        "http://jamaica-star.com/news",
-        "http://radiojamaicanewsonline.com/local"
+        {
+            "link": "https://nationwideradiojm.com/category/crime-court-natlsecurity/",
+            "key": "NW",
+            "countryCode": "JM"
+        },
+        {
+            "link": "https://jamaica.loopnews.com/category/loopjamaica-jamaica-news",
+            "key": "JL",
+            "countryCode": "JM"
+        },
+        {
+            "link": "http://jamaica-star.com/news",
+            "key": "JS",
+            "countryCode": "JM"
+        },
+        {
+            "link": "http://radiojamaicanewsonline.com/local",
+            "key": "RJ",
+            "countryCode": "JM"
+        },
+        {
+            "link": "https://tt.loopnews.com/category/looptt-crime",
+            "key": "TTL",
+            "countryCode": "TT"
+        },
+        {
+            "link": "https://trinidadexpress.com/news/local/",
+            "key": "TTE",
+            "countryCode": "TT"
+        },
+        {
+            "link": "https://newsday.co.tt/category/news/",
+            "key": "NTT",
+            "countryCode": "TT"
+        },
+        {
+            "link": "https://newsroom.gy/category/crime/",
+            "key": "NRG",
+            "countryCode": "GY"
+        },
+        {
+            "link": "https://www.inewsguyana.com/category/local-news/",
+            "key": "ING",
+            "countryCode": "GY"
+        },
+        {
+            "link": "https://demerarawaves.com/category/news/crime/",
+            "key": "DMW",
+            "countryCode": "GY"
+        },
+        {
+            "link": "https://barbadostoday.bb/category/local-news/",
+            "key": "BBT",
+            "countryCode": "BB"
+        },
+        {
+            "link": "https://barbados.loopnews.com/category/loopnewsbarbados-barbados-news/",
+            "key": "BBL",
+            "countryCode": "BB"
+        },
+        {
+            "link": "https://www.nationnews.com/category/news/",
+            "key": "NNB",
+            "countryCode": "BB"
+        },
+        {
+            "link": "https://stluciastar.com/category/local-news/",
+            "key": "SLS",
+            "countryCode": "SL"
+        },
+        {
+            "link": "https://stluciatimes.com/category/crime/",
+            "key": "SLT",
+            "countryCode": "SL"
+        },
+        {
+            "link": "https://stlucia.loopnews.com/category/loopslu-st-lucia-news",
+            "key": "SLL",
+            "countryCode": "SL"
+        },
+        {
+            "link": "https://www.breakingbelizenews.com/category/social-issues/crime/",
+            "key": "BBN",
+            "countryCode": "BL"
+        },
+        {
+            "link": "https://edition.channel5belize.com/archives/category/crime",
+            "key": "CFB",
+            "countryCode": "BL"
+        }
     ]
 }

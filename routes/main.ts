@@ -1,19 +1,32 @@
 import * as express from "express";
 import { updateArticleResults } from "../functions/functions";
-const fs = require("fs");
 const router = express.Router();
 const { Articles } = require("../models/Articles");
 
-router.get("/", async (req, res) => {
-  const stringifiedArticles = await Articles.findOne({
-    title: "articles",
-  }).exec();
-  return res.json(JSON.parse(stringifiedArticles.articleStringified));
+router.get("/articles/:countryCode", async (req, res) => {
+  const countryCode = req.params.countryCode;
+  if (!countryCode) return res.status(400).json({ message: "Invalid request" });
+
+  try {
+    const articles = await Articles.find({
+      countryCode: countryCode.trim().toUpperCase(),
+    }).exec();
+
+    return res.status(200).json(articles);
+  } catch (err: any) {
+    console.error(err);
+    return res.status(500).json({ message: err.toString() });
+  }
 });
 
 router.get("/cron", async (req, res) => {
-  await updateArticleResults();
-  return res.json({ message: "Successful" });
+  try {
+    await updateArticleResults();
+    return res.status(200).json({ message: "Successful" });
+  } catch (err: any) {
+    console.error(err);
+    return res.status(500).json({ message: err.toString() });
+  }
 });
 
 module.exports = router;

@@ -1,31 +1,30 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { ArticleInformationType } from "../types/types";
+import { ArticleInformationType, CrawlLink } from "../types/types";
 var cheerio = require("cheerio");
 const axios = require("axios").default;
-const fs = require("fs");
 const contextJson = require("../context.json");
 const { Articles } = require("../models/Articles");
 
 export async function updateArticleResults() {
-  const articles = await getRelatedArticles();
-  const response = await Articles.updateOne(
-    { title: "articles" },
-    { articleStringified: JSON.stringify(articles) }
-  );
-  if (!response.matchedCount && !response.modifiedCount) {
-    await Articles.create({
-      title: "articles",
-      articleStringified: JSON.stringify(articles),
-    });
+  try {
+    await Articles.deleteMany({});
+
+    const fetchedArticles = await getRelatedArticles();
+
+    await Articles.create(fetchedArticles);
+  } catch (err: any) {
+    console.error(err);
+    throw new Error(err);
   }
 }
 
 const getRelatedArticles = async (): Promise<ArticleInformationType[]> => {
-  const urls: string[] = contextJson.websitesToCrawl;
+  const urls: CrawlLink[] = contextJson.websitesToCrawl;
   let linkArray: ArticleInformationType[] = [];
-  for (let url of urls) {
+
+  for (const url of urls) {
     await axios
-      .get(url)
+      .get(url.link)
       .then((response: AxiosResponse) => {
         let $ = cheerio.load(response.data);
         let links = $("a");
@@ -35,18 +34,20 @@ const getRelatedArticles = async (): Promise<ArticleInformationType[]> => {
             !containsWordsToIgnore($(link).text())
           ) {
             linkArray.push({
-              id: getArticleId(url),
+              key: url.key,
               text: $(link).text().trim(),
-              link: getArticleLink($(link).attr("href"), getArticleId(url)),
+              link: getArticleLink($(link).attr("href"), url.key),
+              countryCode: url.countryCode,
             });
           }
         });
       })
       .catch((error: AxiosError | Error) => {
-        console.log(error);
+        console.error(error);
       });
   }
   linkArray = removeDuplicates(linkArray);
+  console.log(`📰 ${linkArray.length} articles fetched`);
   return linkArray;
 };
 
@@ -58,15 +59,30 @@ const getArticleLink = (link: string, id: string): string => {
     JL: "https://jamaica.loopnews.com/",
     JS: "http://jamaica-star.com/",
     RJ: "http://radiojamaicanewsonline.com/",
+    TTL: "https://tt.loopnews.com/",
+    TTE: "https://trinidadexpress.com/",
+    NTT: "https://newsday.co.tt/",
+    NRG: "https://newsroom.gy/",
+    ING: "https://www.inewsguyana.com/",
+    DMW: "https://demerarawaves.com/",
+    BBT: "https://barbadostoday.bb/",
+    BBL: "https://barbados.loopnews.com/",
+    NNB: "https://www.nationnews.com/",
+    SLS: "https://stluciastar.com/",
+    SLT: "https://stluciatimes.com/",
+    SLL: "https://stlucia.loopnews.com/",
+    BBN: "https://www.breakingbelizenews.com/",
+    CFB: "https://edition.channel5belize.com/",
   };
   return link[0] != "/" ? hashMap[id] + link : hashMap[id].slice(0, -1) + link;
 };
 
 const includesText = (text: string): boolean => {
   if (!text) return false;
+
   const keyWords: string[] = contextJson.keyWordsToInclude;
   for (let keyword of keyWords) {
-    if (text.includes(keyword)) return true;
+    if (text.toLowerCase().includes(keyword.toLowerCase())) return true;
   }
   return false;
 };
@@ -74,18 +90,9 @@ const includesText = (text: string): boolean => {
 const containsWordsToIgnore = (text: string): boolean => {
   const excludedWords: string[] = contextJson.keyWordsToExclude;
   for (let excludedWord of excludedWords) {
-    if (text.includes(excludedWord)) return true;
+    if (text.toLowerCase().includes(excludedWord.toLowerCase())) return true;
   }
   return false;
-};
-
-const getArticleId = (url: string): string => {
-  if (url.includes("jamaicaobserver")) return "JO";
-  if (url.includes("nationwideradiojm")) return "NW";
-  if (url.includes("loopnews")) return "JL";
-  if (url.includes("jamaica-star")) return "JS";
-  if (url.includes("radiojamaicanewsonline")) return "RJ";
-  return "ER";
 };
 
 const removeDuplicates = (
