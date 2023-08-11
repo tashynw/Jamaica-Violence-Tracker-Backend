@@ -71,7 +71,6 @@ const getArticleLink = (link: string, id: string): string => {
     SLS: "https://stluciastar.com/",
     SLT: "https://stluciatimes.com/",
     SLL: "https://stlucia.loopnews.com/",
-    BBN: "https://www.breakingbelizenews.com/",
     CFB: "https://edition.channel5belize.com/",
   };
   return link[0] != "/" ? hashMap[id] + link : hashMap[id].slice(0, -1) + link;
