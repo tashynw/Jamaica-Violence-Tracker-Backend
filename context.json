@@ -113,6 +113,16 @@
             "link": "https://edition.channel5belize.com/archives/category/crime",
             "key": "CFB",
             "countryCode": "BL"
+        },
+        {
+            "link": "http://www.tribune242.com/news/crime-&-court/",
+            "key": "TBH",
+            "countryCode": "BH"
+        },
+        {
+            "link": "https://www.bahamaspress.com/category/news/",
+            "key": "BHP",
+            "countryCode": "BH"
         }
     ]
 }
