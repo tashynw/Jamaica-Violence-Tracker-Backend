@@ -74,6 +74,7 @@ const getArticleLink = (link: string, id: string): string => {
     CFB: "https://edition.channel5belize.com/",
     TBH: "http://www.tribune242.com/",
     BHP: "https://www.bahamaspress.com/",
+    CVM: "https://www.cvmtv.com/"
   };
   return link[0] != "/" ? hashMap[id] + link : hashMap[id].slice(0, -1) + link;
 };

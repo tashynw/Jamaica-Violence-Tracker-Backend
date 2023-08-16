@@ -45,6 +45,11 @@
             "countryCode": "JM"
         },
         {
+            "link": "https://www.cvmtv.com/category/news/major-stories/",
+            "key": "CVM",
+            "countryCode": "JM"
+        },
+        {
             "link": "https://tt.loopnews.com/category/looptt-crime",
             "key": "TTL",
             "countryCode": "TT"
