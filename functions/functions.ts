@@ -8,7 +8,7 @@ const { Articles } = require("../models/Articles");
 export async function updateArticleResults() {
   try {
     const fetchedArticles = await getRelatedArticles();
-    
+
     await Articles.deleteMany({});
     await Articles.create(fetchedArticles);
   } catch (err: any) {
@@ -18,36 +18,41 @@ export async function updateArticleResults() {
 }
 
 const getRelatedArticles = async (): Promise<ArticleInformationType[]> => {
-  const urls: CrawlLink[] = contextJson.websitesToCrawl;
-  let linkArray: ArticleInformationType[] = [];
+  try {
+    const urls: CrawlLink[] = contextJson.websitesToCrawl;
+    let linkArray: ArticleInformationType[] = [];
 
-  for (const url of urls) {
-    await axios
-      .get(url.link)
-      .then((response: AxiosResponse) => {
-        let $ = cheerio.load(response.data);
-        let links = $("a");
-        $(links).each((i: number, link: any) => {
-          if (
-            includesText($(link).text()) &&
-            !containsWordsToIgnore($(link).text())
-          ) {
-            linkArray.push({
-              key: url.key,
-              text: $(link).text().trim(),
-              link: getArticleLink($(link).attr("href"), url.key),
-              countryCode: url.countryCode,
-            });
-          }
+    for (const url of urls) {
+      await axios
+        .get(url.link)
+        .then((response: AxiosResponse) => {
+          let $ = cheerio.load(response.data);
+          let links = $("a");
+          $(links).each((i: number, link: any) => {
+            if (
+              includesText($(link).text()) &&
+              !containsWordsToIgnore($(link).text())
+            ) {
+              linkArray.push({
+                key: url.key,
+                text: $(link).text().trim(),
+                link: getArticleLink($(link).attr("href"), url.key),
+                countryCode: url.countryCode,
+              });
+            }
+          });
+        })
+        .catch((error: AxiosError | Error) => {
+          console.error(error);
         });
-      })
-      .catch((error: AxiosError | Error) => {
-        console.error(error);
-      });
+    }
+    linkArray = removeDuplicates(linkArray);
+    console.log(`📰 ${linkArray.length} articles fetched`);
+    return linkArray;
+  } catch (err: any) {
+    console.error(err);
+    throw new Error(err);
   }
-  linkArray = removeDuplicates(linkArray);
-  console.log(`📰 ${linkArray.length} articles fetched`);
-  return linkArray;
 };
 
 const getArticleLink = (link: string, id: string): string => {
@@ -73,7 +78,7 @@ const getArticleLink = (link: string, id: string): string => {
     CFB: "https://edition.channel5belize.com/",
     TBH: "http://www.tribune242.com/",
     BHP: "https://www.bahamaspress.com/",
-    CVM: "https://www.cvmtv.com/"
+    CVM: "https://www.cvmtv.com/",
   };
   return link[0] != "/" ? hashMap[id] + link : hashMap[id].slice(0, -1) + link;
 };
