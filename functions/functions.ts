@@ -7,10 +7,9 @@ const { Articles } = require("../models/Articles");
 
 export async function updateArticleResults() {
   try {
-    await Articles.deleteMany({});
-
     const fetchedArticles = await getRelatedArticles();
-
+    
+    await Articles.deleteMany({});
     await Articles.create(fetchedArticles);
   } catch (err: any) {
     console.error(err);
