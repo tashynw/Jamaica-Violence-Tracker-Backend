@@ -22,30 +22,33 @@ const getRelatedArticles = async (): Promise<ArticleInformationType[]> => {
     const urls: CrawlLink[] = contextJson.websitesToCrawl;
     let linkArray: ArticleInformationType[] = [];
 
-    for (const url of urls) {
-      await axios
-        .get(url.link)
-        .then((response: AxiosResponse) => {
-          let $ = cheerio.load(response.data);
-          let links = $("a");
-          $(links).each((i: number, link: any) => {
-            if (
-              includesText($(link).text()) &&
-              !containsWordsToIgnore($(link).text())
-            ) {
-              linkArray.push({
-                key: url.key,
-                text: $(link).text().trim(),
-                link: getArticleLink($(link).attr("href"), url.key),
-                countryCode: url.countryCode,
-              });
-            }
+    await Promise.all(
+      urls.map(async (url) => {
+        await axios
+          .get(url.link)
+          .then((response: AxiosResponse) => {
+            let $ = cheerio.load(response.data);
+            let links = $("a");
+            $(links).each((i: number, link: any) => {
+              if (
+                includesText($(link).text()) &&
+                !containsWordsToIgnore($(link).text())
+              ) {
+                linkArray.push({
+                  key: url.key,
+                  text: $(link).text().trim(),
+                  link: getArticleLink($(link).attr("href"), url.key),
+                  countryCode: url.countryCode,
+                });
+              }
+            });
+          })
+          .catch((error: AxiosError | Error) => {
+            console.error(error);
           });
-        })
-        .catch((error: AxiosError | Error) => {
-          console.error(error);
-        });
-    }
+      })
+    );
+
     linkArray = removeDuplicates(linkArray);
     console.log(`📰 ${linkArray.length} articles fetched`);
     return linkArray;
